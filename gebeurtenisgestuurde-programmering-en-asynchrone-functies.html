@@ -1,0 +1,1980 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/nl-ecmascript6-oct-2019/gebeurtenisgestuurde-programmering-en-asynchrone-functies.html">
+      
+      
+        <link rel="prev" href="de-modules-es6.html">
+      
+      
+        <link rel="next" href="de-javascript-functies-van-http.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>11. Gebeurtenisgestuurde programmering en asynchrone functies - Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#11-gebeurtenisgestuurde-programmering-en-asynchrone-functies" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden" class="md-header__button md-logo" aria-label="Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              11. Gebeurtenisgestuurde programmering en asynchrone functies
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar donkere modus"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar donkere modus" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Overschakelen naar lichte modus"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Overschakelen naar lichte modus" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/nl-ecmascript6-oct-2019" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden" class="md-nav__button md-logo" aria-label="Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Inleiding tot de taal ECMASCRIPT 6 aan de hand van voorbeelden
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/nl-ecmascript6-oct-2019" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WelKom
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="inleiding-tot-de-taal-ecmascript-6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Inleiding tot de taal ECMASCRIPT 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="een-werkomgeving-installeren.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Een werkomgeving installeren
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-basis-van-javascript.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. De basis van JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tabellen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Tabellen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="letterlijke-objecten.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Letterlijke objecten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tekenreeksen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Tekenreeksen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reguliere-expressies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Reguliere expressies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-functies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. De functies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fouten-en-uitzonderingen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Fouten en uitzonderingen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-modules-es6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. De modules ES6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Gebeurtenisgestuurde programmering en asynchrone functies
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="gebeurtenisgestuurde-programmering-en-asynchrone-functies.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Gebeurtenisgestuurde programmering en asynchrone functies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#111-script-async-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1. script [async-01]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#112-script-async-02" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2. script [async-02]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#113-script-async-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3. script [async-03]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#114-script-async-04" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4. script [async-04]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#115-script-async-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5. script [async-05]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#116-script-async-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.6. script [async-06]
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-javascript-functies-van-http.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. De JavaScript-functies van HTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="de-klassen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. De klassen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="javascript-clients-van-de-belastingberekeningsdienst-van-het-type-http.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Javascript-clients van de belastingberekeningsdienst van het type HTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><span id="refheadingtoc2091462346209355" name="refheadingtoc2091462346209355" class="odt-bookmark-anchor"></span>
+<span id="fontionsasync" name="fontionsasync" class="odt-bookmark-anchor"></span></p>
+<h1 id="11-gebeurtenisgestuurde-programmering-en-asynchrone-functies">11. <span style="color: #365f91"><strong>Gebeurtenisgestuurde programmering en asynchrone functies</strong></span></h1>
+<p><img src="images/10000000000000E900000136448462DF.png" width="93" height="124" style="width:2.469cm;height:3.283cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000000E900000136448462DF.png" /></p>
+<p>Een asynchrone functie is een functie waarvan de uitvoering wordt gestart, maar waarvan het resultaat niet wordt afgewacht. Wanneer de uitvoering is voltooid, genereert de asynchrone functie een gebeurtenis en geeft het resultaat via deze gebeurtenis door.</p>
+<p>Deze werkwijze is zeer geschikt voor uitvoering binnen een webbrowser. Een applicatie die binnen een browser wordt uitgevoerd, is namelijk een gebeurtenisgestuurde applicatie: de applicatie reageert op gebeurtenissen, die voornamelijk door de gebruiker worden veroorzaakt (klikken, muisbewegingen, tekstinvoer, …). JavaScript-toepassingen die in een browser worden uitgevoerd, moeten via het protocol HTTP communiceren met externe diensten. De native JavaScript-functies van HTTP zijn asynchroon: ze worden gestart en het ontvangen van het antwoord van de aangeroepen externe dienst wordt gemeld door een gebeurtenis die wordt toegevoegd aan de verzameling gebeurtenissen die door de applicatie worden beheerd.</p>
+<p>De volgende scripts worden uitgevoerd door <strong>[node.js]</strong> en niet door een browser. Ook <strong>[node.js]</strong> heeft een gebeurtenisgestuurde uitvoeringsmodus:</p>
+<ul>
+  <li><b>[node.js] </b>gebruikt, net als een browser, een gebeurtenislus om een script uit te voeren;
+  </li>
+  <li>de uitvoering van de hoofdcode van het script is de eerste gebeurtenis die wordt uitgevoerd;
+  </li>
+  <li>als deze hoofdcode asynchrone taken heeft gestart, gaat de uitvoering door totdat deze asynchrone taken zijn voltooid. Deze taken genereren een gebeurtenis wanneer ze zijn voltooid. Deze gebeurtenissen worden in de wachtrij van de gebeurtenissenlus geplaatst;
+  </li>
+  <li>het hoofdscript moet zich op deze gebeurtenissen abonneren als het de resultaten van de asynchrone acties wil ophalen;
+  </li>
+  <li>het script is pas voltooid wanneer alle door het script gegenereerde gebeurtenissen zijn verwerkt;
+  </li>
+</ul>
+
+<p><span id="refheadingtoc225376640539168" name="refheadingtoc225376640539168" class="odt-bookmark-anchor"></span></p>
+<h2 id="111-script-async-01">11.1. <span style="color: #4f81bd">script [async-01]</span></h2>
+<p>Het volgende script laat zien hoe een script met een asynchrone actie werkt.</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content">&#x27;use strict&#x27;;</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// imports</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> moment </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;moment&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> { sprintf } </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;sprintf-js&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// begin</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutScript = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// setTimeout start een timer van 1000 ms (2e parameter) en retourneert onmiddellijk het nummer van deze timer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer de timer de 1000 ms heeft bereikt, genereert deze een gebeurtenis die in de wachtrij van de runtime wordt geplaatst</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer de gebeurtenis door de runtime wordt verwerkt, wordt de functie (eerste parameter) uitgevoerd</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// deze code wordt uitgevoerd wanneer de timer de waarde 0 heeft bereikt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin de l&#x27;action asynchrone setTimeout]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}, 1000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wordt weergegeven vóór het bericht van de interne functie van de timer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin du code principal du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// hulpprogramma voor het weergeven van tijd en duur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> heure(début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// huidige tijd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">const</span><span style="color:#000000"> now = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// tijdopmaak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">let</span><span style="color:#000000"> result = </span><span style="color:#a31515">&quot;heure=&quot;</span><span style="color:#000000"> + now.format(</span><span style="color:#a31515">&quot;HH:mm:ss:SSS&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// moet er een duur worden berekend?</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">if</span><span style="color:#000000"> (début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> durée = now - début;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> milliseconds = durée % 1000;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> seconds = Math.floor(durée / 1000);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// opmaak van tijd + duur</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    result = result + sprintf(</span><span style="color:#a31515">&quot;, durée= %s seconde(s) et %s millisecondes&quot;</span><span style="color:#000000">, seconds, milliseconds);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// resultaat</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> result;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+</code></pre></div>
+
+<ul>
+  <li>regel 4: de bibliotheek <b>[moment]</b> wordt geïmporteerd om de datums te kunnen opmaken (regel 27);
+  </li>
+  <li>regel 5: de bibliotheek <b>[sprintf-js]</b> wordt geïmporteerd om de tijdsduur op te maken (regel 34);
+  </li>
+  <li>regel 8: we noteren het starttijdstip van het script;
+  </li>
+  <li>regel 9: deze wordt weergegeven met behulp van de methode <b>[heure] </b>uit de regels 20-34;
+  </li>
+  <li>regels 14-17: de functie <b>[setTimeout] </b>heeft twee parameters (f, duur): <b>f </b>is een functie die wordt uitgevoerd wanneer <b>[durée] </b>milliseconden zijn verstreken;
+  </li>
+  <li>regel 14: bij het uitvoeren van het script wordt de functie <b>[setTimeout] </b>uitgevoerd:
+    <ul>
+      <li>regel 17: er wordt een timer van 1000 ms gestart en het aftellen begint totdat deze later 0 bereikt. De functie <b>[setTimeout] </b>is voltooid zodra de timer is geïnitialiseerd en het aftellen is begonnen. De functie <b>wacht niet </b>tot het aftellen is voltooid. Ze retourneert een nummer dat de gebruikte timer identificeert en de uitvoering gaat verder met de volgende instructie, regel 20. Hier wordt het resultaat van <b>[setTimeout] </b>niet gebruikt;
+      </li>
+    </ul>
+  </li>
+  <li>regel 16: dit bericht wordt weergegeven aan het einde van de tijdlimiet van 1000 ms van de functie <b>[setTimeout]</b>;
+  </li>
+  <li>regels 15-16: de functie f, de eerste parameter van de functie <b>[setTimeout]</b>, wordt uitgevoerd aan het einde van de vertraging van 1000 ms. Het bericht van regel 16 wordt dan weergegeven;
+  </li>
+  <li>regel 20: dit bericht wordt weergegeven vóór dat van regel 16;
+  </li>
+</ul>
+
+<p><strong>Tijdfunctie</strong>:</p>
+<ul>
+  <li>regel 23: de functie accepteert een optionele parameter <b>[heure]</b>, namelijk het starttijdstip van een bewerking waarvan de duur moet worden weergegeven;
+  </li>
+  <li>regels 25-27: de huidige tijd wordt berekend en opgemaakt;
+  </li>
+  <li>regel 29: als de parameter <b>[début] </b>aanwezig is, moet er een duur worden berekend;
+  </li>
+  <li>regel 30: de duur van de bewerking. Dit levert een getal in milliseconden op;
+  </li>
+  <li>regels 31-32: dit aantal milliseconden wordt opgesplitst in seconden en milliseconden;
+  </li>
+  <li>regel 34: de duur wordt bij de tijd opgeteld;
+  </li>
+</ul>
+
+<p><strong>Uitvoering</strong></p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Running]</span><span style="color:#a31515"> C:\myprograms\laragon-lite\bin\nodejs\node-v10\node.exe -r esm &quot;c:\Data\st-2019\dev\es6\javascript\async\async-01.js&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début du script]</span>, heure=09:26:40:238</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin du code principal du script]</span>, heure=09:26:40:246, durée= 0 seconde(s) et 11 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin de l&#x27;action asynchrone setTimeout]</span>, heure=09:26:41:249, durée= 1 seconde(s) et 14 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Done]</span><span style="color:#a31515"> exited with </span><span style="color:#800080">code=0</span><span style="color:#a31515"> in </span><span style="color:#09885a">1.672</span><span style="color:#a31515"> seconds</span></span></span>
+</code></pre></div>
+
+<ul>
+  <li>in regel 4 zien we dat de asynchrone actie <b>[setTimeOut] </b>ongeveer 1 seconde na het einde van de hoofdcode van het script is voltooid;
+  </li>
+  <li>regel 6: de tijd die op regel 3 wordt weergegeven, is het tijdstip waarop de hoofdcode is voltooid. Als deze asynchrone taken heeft gestart, is het script pas voltooid wanneer alle asynchrone taken zijn uitgevoerd. De duur die op regel 6 wordt weergegeven, is de totale uitvoeringstijd van het script (hoofdcode + asynchrone taken);
+  </li>
+</ul>
+
+<p>Met de functie <strong>[setTimeout]</strong> kunnen we asynchrone taken simuleren in een <strong>[node.js]</strong>-omgeving. De functie <strong>[setTimeout]</strong> gedraagt zich namelijk als een asynchrone taak:</p>
+<ul>
+  <li>ze levert onmiddellijk een resultaat op, in dit geval een timernummer, via het gebruikelijke mechanisme van functies (return);
+  </li>
+  <li>ze kan <b>later </b>(wat hierboven nog niet het geval is) nog andere resultaten teruggeven <b>via gebeurtenissen </b>die vervolgens worden verwerkt door de gebeurtenislus van <b>[node.js]</b>;
+  </li>
+  <li>in de meeste gevallen die hierna volgen, zullen er twee van dergelijke gebeurtenissen zijn:
+    <ul>
+      <li>een gebeurtenis die we <b>[success]</b> zouden kunnen noemen, die wordt gegenereerd door de asynchrone taak die haar opdracht met succes heeft voltooid. Aan de gegenereerde gebeurtenis is een gegeven gekoppeld, namelijk het resultaat van de taak;
+      </li>
+      <li>een gebeurtenis die we <b>[failure]</b> zouden kunnen noemen, die wordt gegenereerd door de asynchrone taak die er niet in is geslaagd te doen wat ze moest doen. Aan de gegenereerde gebeurtenis is een gegeven gekoppeld, meestal een object dat de fout beschrijft. Mogelijke fouten bij bijvoorbeeld een asynchrone internettaak zijn ‘netwerk niet beschikbaar’, ‘server bestaat niet’, ‘time-out overschreden’, ...
+      </li>
+    </ul>
+  </li>
+  <li>De hoofdcode die een asynchrone taak heeft gestart, kan zich abonneren op de gebeurtenissen die deze taak mogelijk uitzendt. Wanneer een van deze gebeurtenissen wordt uitgezonden, wordt de hoofdcode hiervan op de hoogte gesteld en kan deze de uitvoering van een specifieke functie activeren die bedoeld is om de gebeurtenis af te handelen. Deze functie ontvangt als parameter de gegevens die de asynchrone taak aan de uitgezonden gebeurtenis heeft gekoppeld;
+  </li>
+</ul>
+
+<p><span id="refheadingtoc225378640539168" name="refheadingtoc225378640539168" class="odt-bookmark-anchor"></span></p>
+<h2 id="112-script-async-02">11.2. <span style="color: #4f81bd">script [async-02]</span></h2>
+<p>In dit script zal de asynchrone functie <strong>[setTimeout]</strong> gebeurtenissen verzenden om gegevens door te geven aan de codes die zich hierop hebben geabonneerd.</p>
+<p>Voor toegang tot de gebeurtenissen van <strong>[node.js]</strong> zijn extra bibliotheken nodig. We kiezen voor de bibliotheek <strong>[events],</strong> die we samen met <strong>[npm]</strong> installeren:</p>
+<p><img src="images/10000000000005850000019732E59DD8.png" width="565" height="163" style="width:14.951cm;height:4.309cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000005850000019732E59DD8.png" /></p>
+<p>Het script <strong>[async-02]</strong> is als volgt:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content">&#x27;&#x27;use strict&#x27;;</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// asynchrone functies kunnen een resultaat retourneren door een gebeurtenis te genereren</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// de hoofdcode kan deze resultaten ophalen door zich te abonneren op de verzonden gebeurtenissen</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// imports</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> moment </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;moment&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> { sprintf } </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;sprintf-js&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> EventEmitter </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;events&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// begin</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutScript = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een gebeurtenisverzender</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> eventEmitter = </span><span style="color:#0000ff">new</span><span style="color:#000000"> EventEmitter();</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// setTimeout stelt een timer in van 1000 ms (2e parameter) en retourneert onmiddellijk het nummer van deze timer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer de timer de 1000 ms heeft verstreken, zendt hij een gebeurtenis uit die in de wachtrij van de runtime wordt geplaatst</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer de gebeurtenis door de runtime wordt verwerkt, wordt de functie (eerste parameter) uitgevoerd</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// deze code wordt uitgevoerd wanneer de timer de waarde 0 heeft bereikt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[setTimeout, fin du timer d&#x27;1 s]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// er wordt een gebeurtenis verzonden om aan te geven dat er een resultaat beschikbaar is</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  eventEmitter.emit(</span><span style="color:#a31515">&quot;timer1Success&quot;</span><span style="color:#000000">, { success: 4 });</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// er wordt een andere gebeurtenis verzonden om aan te geven dat er nog een resultaat beschikbaar is</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  eventEmitter.emit(</span><span style="color:#a31515">&quot;timer1Failure&quot;</span><span style="color:#000000">, { failure: 6 });</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}, 1000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// er wordt een abonnement genomen op de gebeurtenis [timer1Success]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">eventEmitter.on(</span><span style="color:#a31515">&#x27;timer1Success&#x27;</span><span style="color:#000000">, (result) =&gt; {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;la fonction asynchrone du timer a rendu le résultat </span><span style="font-weight:bold;color:#a31515">[%j]</span><span style="color:#a31515">, %s, via l&#x27;événement </span><span style="font-weight:bold;color:#a31515">[timer1Success]</span><span style="color:#a31515">&quot;</span><span style="color:#000000">, result, heure(débutScript)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// er wordt een abonnement genomen op de gebeurtenis [timer1Failure]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">eventEmitter.on(</span><span style="color:#a31515">&#x27;timer1Failure&#x27;</span><span style="color:#000000">, (result) =&gt; {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;la fonction asynchrone du timer a rendu le résultat </span><span style="font-weight:bold;color:#a31515">[%j]</span><span style="color:#a31515">, %s, via l&#x27;événement </span><span style="font-weight:bold;color:#a31515">[timer1Failure]</span><span style="color:#a31515">&quot;</span><span style="color:#000000">, result, heure(débutScript)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wordt weergegeven vóór de berichten van de gebeurtenissen die worden verzonden door de functie die is gekoppeld aan [timer1]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin du code principal du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// hulpprogramma voor het weergeven van tijd en duur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> heure(début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// huidige tijd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">const</span><span style="color:#000000"> now = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// tijdopmaak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">let</span><span style="color:#000000"> result = </span><span style="color:#a31515">&quot;heure=&quot;</span><span style="color:#000000"> + now.format(</span><span style="color:#a31515">&quot;HH:mm:ss:SSS&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// moet er een duur worden berekend?</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">if</span><span style="color:#000000"> (début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> durée = now - début;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> milliseconds = durée % 1000;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> seconds = Math.floor(durée / 1000);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// opmaak van tijd + duur</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    result = result + sprintf(</span><span style="color:#a31515">&quot;, durée= %s seconde(s) et %s millisecondes&quot;</span><span style="color:#000000">, seconds, milliseconds);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// resultaat</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> result;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+</code></pre></div>
+
+<p><strong>Opmerkingen</strong></p>
+<ul>
+  <li>regel 9: we importeren de klasse <b>[EventEmitter] </b>uit de bibliotheek <b>[events]</b>. Dit is nieuw: tot nu toe hadden we alleen letterlijke objecten en functies geïmporteerd;
+  </li>
+  <li>regel 15: we maken een gebeurtenisuitzender <b>[node.js]</b> aan door de klasse <b>[EventEmitter]</b> te instantiëren met het sleutelwoord <b>[new]</b>;
+  </li>
+  <li>regels 20-27: de asynchrone functie <b>[setTimeout]</b>. Deze zal tijdens de uitvoering twee gebeurtenissen genereren:
+    <ul>
+      <li>regel 24: de gebeurtenis <b>[timer1Success] </b>met als bijbehorende waarde het object {success : 4};
+      </li>
+      <li>regel 26: de gebeurtenis <b>[timer1Failure] </b>met als bijbehorende waarde het object {failure: 6};
+      </li>
+      <li>een asynchrone functie kan zoveel gebeurtenissen genereren als ze wil. Eerder werd gezegd dat ze meestal één van de twee gebeurtenissen <b>[success, failure]</b> genereert, niet beide zoals hier het geval is;
+      </li>
+    </ul>
+  </li>
+  <li>regel 20: de uitvoering van <b>[setTimeout] </b>gebeurt onmiddellijk: er wordt een timer gestart en het nummer daarvan wordt doorgegeven aan de aanroepende code. Het verzenden van de gebeurtenissen vindt later plaats, in dit geval 1 seconde later;
+  </li>
+  <li>het verzenden van gebeurtenissen heeft geen zin als er geen code is om ze te verwerken wanneer ze zich voordoen. Daarom moet de hoofdcode zich abonneren op beide gebeurtenissen <b>[timer1Success, timer1Failure]</b> als deze ze wil verwerken, met name om de gegevens op te halen die bij deze gebeurtenissen horen;
+  </li>
+  <li>regels 30-32: de hoofdcode abonneert zich op de gebeurtenis <b>[timer1Success]</b>. Wanneer de gebeurtenisbron van <b>[node.js] </b>deze gebeurtenis verwerkt, zal hij de functie aanroepen die de tweede parameter is van de methode <b>[eventEmitter.on]</b>, waarbij hij de gegevens (hier <b>[result]</b> genoemd) doorgeeft die bij de gebeurtenis <b>[timer1Success]</b> horen;
+  </li>
+  <li>regel 31: de functie voor de verwerking van de gebeurtenis geeft de jSON van de aan de gebeurtenis gekoppelde gegevens weer, evenals het huidige tijdstip;
+  </li>
+  <li>regels 35-37: met een vergelijkbare code abonneert de hoofdcode zich op de gebeurtenis <b>[timer1Failure]</b>;
+  </li>
+  <li>het abonneren op een gebeurtenis (1e parameter) leidt niet onmiddellijk tot de uitvoering van de code van de functie <b>[callback] </b>(2e parameter). Deze wordt pas uitgevoerd nadat de gebeurtenis heeft plaatsgevonden;
+  </li>
+  <li>regel 40: de hoofdcode van het script is voltooid, maar het script zelf nog niet, aangezien de hoofdcode een asynchrone taak heeft gestart. Het totale script is pas voltooid nadat deze asynchrone taak is afgerond;
+  </li>
+</ul>
+
+<p>Dit blijkt uit de verkregen resultaten:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Running]</span><span style="color:#a31515"> C:\myprograms\laragon-lite\bin\nodejs\node-v10\node.exe -r esm &quot;c:\Data\st-2019\dev\es6\javascript\async\async-02.js&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début du script]</span>, heure=09:34:58:909</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin du code principal du script]</span>, heure=09:34:58:916, durée= 0 seconde(s) et 10 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[setTimeout, fin du timer d&#x27;1 s]</span>, heure=09:34:59:929, durée= 1 seconde(s) et 23 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">la fonction asynchrone du timer a rendu le résultat <span style="font-weight:bold">[{&quot;success&quot;:4}]</span>, heure=09:34:59:931, durée= 1 seconde(s) et 25 millisecondes, via l&#x27;événement <span style="font-weight:bold">[timer1Success]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">la fonction asynchrone du timer a rendu le résultat <span style="font-weight:bold">[{&quot;failure&quot;:6}]</span>, heure=09:34:59:932, durée= 1 seconde(s) et 26 millisecondes, via l&#x27;événement <span style="font-weight:bold">[timer1Failure]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Done]</span><span style="color:#a31515"> exited with </span><span style="color:#800080">code=0</span><span style="color:#a31515"> in </span><span style="color:#09885a">1.627</span><span style="color:#a31515"> seconds</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+</code></pre></div>
+
+<ul>
+  <li>regel 3: einde van de hoofdcode 10 ms na het begin van het script;
+  </li>
+  <li>regel 4: begin van de functie die is ingekapseld in de timer van 1000 ms, ongeveer 1 seconde na het begin van het script;
+  </li>
+  <li>regel 5: verwerking van de gebeurtenis <b>[‘timer1Success’]</b>, 2 ms later;
+  </li>
+  <li>regel 6: verwerking van de gebeurtenis <b>[‘timer1Failure’]</b>, 1 ms later dan de gebeurtenis <b>[‘timer1Success’]</b>;
+  </li>
+  <li>regel 8: einde van het globale script met een totale duur van 1,627 seconde;
+  </li>
+</ul>
+
+<p><span id="refheadingtoc225380640539168" name="refheadingtoc225380640539168" class="odt-bookmark-anchor"></span></p>
+<h2 id="113-script-async-03">11.3. <span style="color: #4f81bd">script [async-03]</span></h2>
+<p>Het volgende script toont een ander aspect van de gebeurtenislus van <strong>[node.js]</strong>:</p>
+<ul>
+  <li>de lus voert de gebeurtenissen één voor één uit, doorgaans in de volgorde waarin ze binnenkomen. Sommige OS geven prioriteit aan gebeurtenissen, die dan op volgorde van prioriteit worden verwerkt en niet op volgorde van binnenkomst;
+  </li>
+  <li>de lus <b>voert slechts één gebeurtenis tegelijk uit</b>. De volgende wordt pas verwerkt wanneer de verwerking van de vorige is voltooid. In een  gebeurtenissysteem moet men daarom vermijden code te schrijven die de processor langdurig in beslag neemt, want dan worden de gebeurtenissen niet verwerkt wanneer ze zich voordoen, maar pas later wanneer de gebeurtenislus erbij aankomt. Men krijgt dan een applicatie die weinig ‘reactief’ is;
+  </li>
+</ul>
+
+<p>Het script <strong>[async-03]</strong> toont een voorbeeld van dit fenomeen:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content">&#x27;use strict&#x27;;</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// asynchrone functies kunnen een resultaat retourneren door een gebeurtenis te genereren</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// de hoofdcode kan deze resultaten ophalen door zich te abonneren op de verzonden gebeurtenissen</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// imports</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> moment </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;moment&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> { sprintf } </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;sprintf-js&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> EventEmitter </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;events&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// begin</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutScript = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een gebeurtenisverzender</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> eventEmitter = </span><span style="color:#0000ff">new</span><span style="color:#000000"> EventEmitter();</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// setTimeout stelt een timer in van 1000 ms (2e parameter) en retourneert onmiddellijk het nummer van deze timer</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer de timer de 1000 ms heeft verstreken, zendt hij een gebeurtenis uit die in de wachtrij van de runtime wordt geplaatst</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer de gebeurtenis door de runtime wordt verwerkt, wordt de functie (eerste parameter) uitgevoerd</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// deze code wordt uitgevoerd zodra de timer de waarde 0 bereikt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[setTimeout, fin du timer d&#x27;1 s]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// er wordt een gebeurtenis verzonden om aan te geven dat er een resultaat beschikbaar is</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  eventEmitter.emit(</span><span style="color:#a31515">&quot;timer1Success&quot;</span><span style="color:#000000">, { success: 4 });</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// er wordt een andere gebeurtenis verzonden om aan te geven dat er nog een resultaat beschikbaar is</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  eventEmitter.emit(</span><span style="color:#a31515">&quot;timer1Failure&quot;</span><span style="color:#000000">, { failure: 6 });</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}, 1000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// er wordt een abonnement genomen op de gebeurtenis [timer1Success]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">eventEmitter.on(</span><span style="color:#a31515">&#x27;timer1Success&#x27;</span><span style="color:#000000">, (result) =&gt; {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;la fonction asynchrone du timer a rendu le résultat </span><span style="font-weight:bold;color:#a31515">[%j]</span><span style="color:#a31515">, %s, via l&#x27;événement </span><span style="font-weight:bold;color:#a31515">[timer1Success]</span><span style="color:#a31515">&quot;</span><span style="color:#000000">, result, heure(débutScript)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// er wordt een abonnement genomen op de gebeurtenis [timer1Failure]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">eventEmitter.on(</span><span style="color:#a31515">&#x27;timer1Failure&#x27;</span><span style="color:#000000">, (result) =&gt; {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;la fonction asynchrone du timer a rendu le résultat </span><span style="font-weight:bold;color:#a31515">[%j]</span><span style="color:#a31515">, %s, via l&#x27;événement </span><span style="font-weight:bold;color:#a31515">[timer1Failure]</span><span style="color:#a31515">&quot;</span><span style="color:#000000">, result, heure(débutScript)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een enigszins intensieve synchrone code die ervoor zorgde dat de hoofdcode niet kon worden voltooid vóór het einde van [timer1]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">for</span><span style="color:#000000"> (</span><span style="color:#0000ff">let</span><span style="color:#000000"> i = 0; i &lt; 1000000; i++) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">for</span><span style="color:#000000"> (</span><span style="color:#0000ff">let</span><span style="color:#000000"> j = 0; j &lt; 10000; j++) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    i + i ^ 2 + i ^ 3;</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// zal worden weergegeven vóór de berichten van de gebeurtenissen die worden verzonden door de functie die is gekoppeld aan [timer1]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// hulpprogramma voor het weergeven van tijd en duur</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> heure(début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"> ...</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+</code></pre></div>
+
+<p><strong>Opmerkingen</strong></p>
+<ul>
+  <li>deze code is afkomstig uit het vorige voorbeeld <b>[async-02], </b>waaraan de regels 39-44 zijn toegevoegd;
+  </li>
+  <li>regels 20-27: de functie <b>[setTimeout] </b>is zo geprogrammeerd dat deze na een vertraging van één seconde een interne asynchrone functie uitvoert. Na deze seconde vindt de uitvoering van de asynchrone timerfunctie niet onmiddellijk plaats: er wordt een gebeurtenis in de uitvoeringslus geplaatst om deze op te roepen. Als de uitvoeringslus bezig is met het verwerken van een andere gebeurtenis, moet de uitvoering van de asynchrone timerfunctie wachten;
+  </li>
+  <li>regels 20-27: zodra de functie <b>[setTimeout] </b>haar timer heeft ingesteld op een vertraging van één seconde, laat ze de processor los en geeft ze de controle terug aan de aanroepende code. Deze gaat verder met de regels 30-37, die bestaan uit abonnementen op gebeurtenissen en waarvan de uitvoeringstijd verwaarloosbaar is;
+  </li>
+  <li>de hoofdcode gaat verder met de regels 40-44, die een lus van 1010 iteraties vormen. Deze code is in uitvoering wanneer de timer zijn gebeurtenis „einde van de vertraging van 1 seconde“ verzendt. Deze gebeurtenis wordt vervolgens in de gebeurtenislus geplaatst, maar moet wachten tot de hoofdcode van het script is uitgevoerd om in aanmerking te komen voor verwerking;
+  </li>
+  <li>regel 47: einde van de hoofdcode van het script. Pas na deze laatste weergave kan de gebeurtenis ‘einde van de timer’ worden verwerkt en kan de interne asynchrone functie van <b>[setTimeout] </b>worden uitgevoerd;
+  </li>
+</ul>
+
+<p>Het script levert de volgende resultaten op:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Running]</span><span style="color:#a31515"> C:\myprograms\laragon-lite\bin\nodejs\node-v10\node.exe -r esm &quot;c:\Data\st-2019\dev\es6\javascript\async\async-03.js&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début du script]</span>, heure=08:55:02:665</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin du code principal du script]</span>, heure=08:55:11:789, durée= 9 seconde(s) et 131 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[setTimeout, fin du timer d&#x27;1 s]</span>, heure=08:55:11:794, durée= 9 seconde(s) et 136 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">la fonction asynchrone du timer a rendu le résultat <span style="font-weight:bold">[{&quot;success&quot;:4}]</span>, heure=08:55:11:794, durée= 9 seconde(s) et 136 millisecondes, via l&#x27;événement <span style="font-weight:bold">[timer1Success]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">la fonction asynchrone du timer a rendu le résultat <span style="font-weight:bold">[{&quot;failure&quot;:6}]</span>, heure=08:55:11:794, durée= 9 seconde(s) et 136 millisecondes, via l&#x27;événement <span style="font-weight:bold">[timer1Failure]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Done]</span><span style="color:#a31515"> exited with </span><span style="color:#800080">code=0</span><span style="color:#a31515"> in </span><span style="color:#09885a">9.796</span><span style="color:#a31515"> seconds</span></span></span>
+</code></pre></div>
+
+<p><strong>Opmerkingen</strong></p>
+<ul>
+  <li>regel 3: we zien dat de uitvoering van de hoofdcode van het script 9 seconden heeft geduurd. De gebeurtenissen die zich in die tijd konden voordoen, zijn in de gebeurtenislus in de wachtrij geplaatst;
+  </li>
+  <li>regel 4: we zien dat de gebeurtenis <b>[fin du timer]</b> 5 ms na het einde van de hoofdcode is verwerkt. Deze gebeurtenis werd ongeveer 1 s na het begin van het script gegenereerd, maar moest nog 8 s wachten voordat ze uiteindelijk werd verwerkt;
+  </li>
+</ul>
+
+<p>Wat we uit dit voorbeeld kunnen leren, is dat in een gebeurtenisgestuurd systeem code de processor nooit te lang mag bezetten. Als we een synchrone code hebben die lang duurt om uit te voeren, moeten we deze ‘op een of andere manier’ opsplitsen in kortere asynchrone taken die hun voltooiing met een gebeurtenis signaleren.</p>
+<p><span id="refheadingtoc225382640539168" name="refheadingtoc225382640539168" class="odt-bookmark-anchor"></span></p>
+<h2 id="114-script-async-04">11.4. <span style="color: #4f81bd">script [async-04]</span></h2>
+<p>Het script <strong>[async-04]</strong> toont een ander mechanisme, genaamd <strong>[Promise]</strong>, een resultaatbelofte. Dit mechanisme voorkomt dat <strong>[node.js]-</strong>gebeurtenissen expliciet moeten worden beheerd. Dit gebeurt impliciet en de ontwikkelaar kan het bestaan van deze gebeurtenissen dan negeren. Als hij deze echter begrijpt, zal hij de werking van de <strong>[Promise]</strong> beter kunnen doorgronden, wat op het eerste gezicht complex lijkt.</p>
+<p>Het type <strong>[Promise]</strong> is een JavaScript-klasse. De constructor ervan accepteert als parameter een asynchrone functie waaraan hij twee parameters doorgeeft die traditioneel <strong>[resolve]</strong> en <strong>[reject]</strong> worden genoemd. Ze zouden ook een andere naam kunnen hebben;</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">promise</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">){</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">     </span><span class="c1">// er wordt een asynchrone taak gestart</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="err">…</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">     </span><span class="c1">// bij succes: roep resolve(result) aan, waarbij [result] het resultaat is van de asynchrone taak;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">     </span><span class="c1">// indien mislukt: roep reject(error) aan, waarbij [error] een object is dat de opgetreden fout bevat;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="p">}</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="c1">// abonneer je op de gebeurtenissen die worden gegenereerd door de asynchrone taak van [Promise]</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+  <li>de constructor van <b>[Promise] </b>doet twee dingen:
+    <ul>
+      <li>hij creëert een gebeurtenis om de uitvoering van de functie <b>[function(resolve, reject)], </b>die als parameter is doorgegeven, te starten, maar wacht niet op het resultaat en retourneert onmiddellijk een object <b>[Promise] </b>aan de aanroepende code. Dit object kan vier statussen hebben:
+        <ul>
+          <li><b>[pending]</b>: de asynchrone actie die <b>[Promise]</b> heeft gegenereerd, is nog niet voltooid;
+          </li>
+          <li><b>[fulfilled]</b>: de asynchrone actie die <b>[Promise]</b> heeft gegenereerd, is succesvol voltooid;
+          </li>
+          <li><b>[rejected]</b>: de asynchrone actie die <b>[Promise]</b> heeft gegenereerd, is mislukt;
+          </li>
+          <li><b>[settled]</b>: de asynchrone actie die <b>[Promise]</b> heeft geretourneerd, is voltooid;
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Wanneer de constructor het resultaat retourneert, bevindt het aangemaakte object <strong>[Promise]</strong> zich in de status <strong>[pending]</strong>, in afwachting van de resultaten van de asynchrone functie;</p>
+<ul>
+  <li>(vervolg)
+    <ul>
+      <li>de asynchrone taak van de regels 2-5 wordt <b>onmiddellijk gestart</b>. Asynchrone taken zijn meestal asynchrone invoer-/uitvoertaken die als volgt zijn opgebouwd:
+        <ol>
+          <li>uitvoering van synchrone code om de I/O-bewerking met een ander onderdeel te starten, bijvoorbeeld een externe server;
+          </li>
+          <li>wachten op het antwoord van dat apparaat;
+          </li>
+          <li>verwerking van dit antwoord;
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Fase 2, het wachten op de externe component, is het meest rekenintensief. In plaats van te wachten:</p>
+<ul>
+  <li>zal de ontvangst van de opgevraagde gegevens van het externe apparaat worden gesignaleerd door een gebeurtenis;
+  </li>
+  <li>in de synchrone code die volgt op fase 1 (regel 7 van de voorbeeldcode), wordt men geabonneerd op deze gebeurtenis en keert men vervolgens op een bepaald moment terug naar de gebeurtenislus van <b>[node.js]</b>. De volgende gebeurtenis in de lijst met wachtende gebeurtenissen wordt dan verwerkt;
+  </li>
+  <li>tijdens fase 2 vindt er parallelle uitvoering plaats, maar op verschillende apparaten:
+    <ul>
+      <li>de processor voor de gebeurtenissenlus;
+      </li>
+      <li>een extern apparaat (schijf, database, externe server) voor het opzoeken van de gevraagde gegevens;
+      </li>
+    </ul>
+  </li>
+  <li>aan het einde van fase 2, wanneer de I/O-bewerking de gevraagde gegevens heeft verkregen, wordt er een gebeurtenis gegenereerd om aan te geven dat het resultaat van de I/O beschikbaar is. Deze gebeurtenis voegt zich vervolgens bij de andere gebeurtenissen in de wachtrij;
+  </li>
+  <li>wanneer het aan de beurt is, wordt het verwerkt. De functie die aan deze gebeurtenis is gekoppeld (regel 7 van de voorbeeldcode) wordt dan uitgevoerd;
+  </li>
+</ul>
+
+<p>Deze werkwijze voorkomt wachttijden: de situatie waarin de processor moet wachten op het antwoord van een apparaat dat langzamer is dan hijzelf;</p>
+<ul>
+  <li>(vervolg)
+    <ul>
+      <li>wanneer de asynchrone taak van de regels 2 en 5 is gestart en haar werk heeft voltooid, kan zij een resultaat teruggeven aan de aanroepende code, dankzij de twee functies <b>[resolve, reject] </b>die de constructor <b>[Promise] </b>als parameters aan haar heeft doorgegeven. De conventie is als volgt:
+        <ul>
+          <li>de asynchrone taak meldt succes via <b>[resolve(result)]</b>. Dit komt neer op het toevoegen aan de gebeurtenissenlus van <b>[node.js]</b> van een gebeurtenis die we <b>[resolved]</b> zouden kunnen noemen, met <b>[result] </b>als bijbehorende gegevens;
+          </li>
+          <li>de asynchrone taak meldt een mislukking via <b>[reject(error)]</b>. Dit komt neer op het plaatsen in de gebeurtenissenlus van <b>[node.js]</b> van een gebeurtenis die we <b>[rejected]</b> zouden kunnen noemen, met <b>[error] </b>als bijbehorende gegevens, doorgaans een object dat de opgetreden fout beschrijft;
+          </li>
+          <li>de aanroepende code moet zich dus op deze twee gebeurtenissen abonneren om op de hoogte te worden gesteld van de beschikbaarheid van het resultaat van de asynchrone functie;
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Nadat de uitvoering van de asynchrone taak die is ingekapseld in <strong>[Promise]</strong> is voltooid, verandert de status van het object <strong>[promise] dat</strong> door de constructor <strong>[Promise(…)]</strong> is geretourneerd:</p>
+<ul>
+  <li>de gebeurtenis <b>[resolved] </b>zorgt ervoor dat deze van de status <b>[pending] </b>naar <b>[resolved] </b>gaat;
+  </li>
+  <li>de gebeurtenis <b>[rejected] </b>zorgt ervoor dat het van de status <b>[pending] </b>naar <b>[rejected] </b>gaat;
+  </li>
+</ul>
+
+<p>Het abonneren op de gebeurtenissen <strong>[resolved]</strong> en <strong>[rejected]</strong> van de asynchrone taak gebeurt met methoden van de klasse <strong>[Promise]</strong> met de volgende syntaxis:</p>
+<p><strong>promise.then(f1).catch(f2).finally(f3);</strong></p>
+<p>waarbij:</p>
+<ul>
+  <li><b>f1 </b>is een functie die wordt uitgevoerd wanneer de status van <b>[promise] </b>verandert van <b>[pending] </b>naar <b>[resolved]</b>, dus wanneer de asynchrone taak zijn taak met succes heeft voltooid. Deze functie ontvangt als parameter de waarde <b>[result]</b>, die wordt doorgegeven door de instructie <b>[resolve(result)] </b>van de asynchrone taak;
+  </li>
+  <li><b>f2 </b>is een functie die wordt uitgevoerd wanneer de status van <b>[promise] </b>verandert van <b>[pending] </b>naar <b>[rejected]</b>, dus wanneer de asynchrone taak er niet in is geslaagd haar taak uit te voeren. Deze functie ontvangt als parameter de waarde <b>[error]</b>, doorgegeven door de instructie <b>[reject(errror)] </b>van de asynchrone taak;
+  </li>
+  <li><b>f3 </b>is een functie die wordt uitgevoerd na de uitvoering van de methoden <b>[then] </b>of <b>[catch]</b>, en wordt dus altijd uitgevoerd. Ze ontvangt geen parameters;
+  </li>
+</ul>
+
+<p>Deze syntaxis verbergt volledig de gebeurtenissen waarop men zich abonneert. Het gaat echter wel degelijk om een abonnement en net als in het vorige voorbeeld worden de functies <strong>[f1, f2, f3]</strong> niet onmiddellijk uitgevoerd. Deze zullen al dan niet worden uitgevoerd wanneer een van de gebeurtenissen <strong>[resolved, rejected]</strong> waarop men zich abonneert, zich voordoet.</p>
+<p>Het script <strong>[async-04]</strong> illustreert dit mechanisme:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content">&#x27;use strict&#x27;;</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// het is mogelijk om de resultaten (succes, mislukking) van een asynchrone functie op te halen</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// zonder expliciet gebruik te maken van gebeurtenissen, dankzij de klasse [Promise]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// deze klasse maakt impliciet gebruik van gebeurtenissen, maar deze zijn niet zichtbaar in de code</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// imports</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> moment </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;moment&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> { sprintf } </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;sprintf-js&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// begin</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutScript = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// definitie van een asynchrone taak met behulp van een promise [Promise]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// de asynchrone taak is de parameter van de constructor [Promise]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutPromise1 = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> promise1 = </span><span style="color:#0000ff">new</span><span style="color:#000000"> Promise(</span><span style="color:#0000ff">function</span><span style="color:#000000"> (resolve) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// log</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début fonction asynchrone de promise1]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutPromise1));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// asynchrone code</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin fonction asynchrone de promise1]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutPromise1));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// de asynchrone taak retourneert een resultaat met de functie [resolve]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// de belofte is dan geslaagd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    resolve(</span><span style="color:#a31515">&#x27;</span><span style="font-weight:bold;color:#a31515">[réussite]</span><span style="color:#a31515">&#x27;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }, 1000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// het resultaat van de belofte kan worden achterhaald met de functie [promise1]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer deze is opgelost (resolve) of afgewezen (reject)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// de volgende instructie is een abonnement op de gebeurtenis [resolved] via de methode [then]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// en op de gebeurtenis [rejected] via de methode [catch]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// de methode [finally] wordt uitgevoerd, of dit nu na een &#x27;then&#x27; of een &#x27;catch&#x27; is</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">promise1.then(result =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// in het geval dat de belofte slaagt  [evt resolved]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise1.then]</span><span style="color:#a31515">, %s, result=%s&quot;</span><span style="color:#000000">, heure(débutPromise2), result));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}).catch(result =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// in geval van een fout  [evt rejected]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise1.catch]</span><span style="color:#a31515">, %s, result=%s&quot;</span><span style="color:#000000">, heure(débutPromise2), result));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}).finally(() =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// in alle gevallen uitgevoerd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise1.finally]</span><span style="color:#a31515">&quot;</span><span style="color:#000000">, heure(débutPromise1));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// definitie van een asynchrone taak met behulp van een promise [Promise]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutPromise2 = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> promise2 = </span><span style="color:#0000ff">new</span><span style="color:#000000"> Promise(</span><span style="color:#0000ff">function</span><span style="color:#000000"> (resolve, reject) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// log</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début fonction asynchrone de promise2]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutPromise1));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// asynchrone taak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin fonction asynchrone de promise2]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutPromise2));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// de asynchrone taak retourneert een resultaat met de functie [reject]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// de belofte is dan mislukt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    reject(</span><span style="color:#a31515">&#x27;</span><span style="font-weight:bold;color:#a31515">[échec]</span><span style="color:#a31515">&#x27;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }, 2000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// het resultaat van de belofte kan worden achterhaald met [promise2]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wanneer deze is opgelost (resolve) of afgewezen (reject)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">promise2.then(result =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// in het geval dat de belofte is geslaagd [evt resolved]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise2.then]</span><span style="color:#a31515">, %s, result=%s&quot;</span><span style="color:#000000">, heure(débutPromise2), result));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}).catch(result =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// in geval van een fout [evt rejected]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise2.catch]</span><span style="color:#a31515">, %s, result=%s&quot;</span><span style="color:#000000">, heure(débutPromise2), result));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}).finally(() =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// wordt in alle gevallen uitgevoerd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise2.finally]</span><span style="color:#a31515">, %s&quot;</span><span style="color:#000000">, heure(débutPromise2)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">});</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wordt weergegeven vóór de berichten van de asynchrone functies en die van de bijbehorende gebeurtenissen</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin du code principal du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// hulpprogramma</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> heure(début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// huidige tijd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">const</span><span style="color:#000000"> now = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// tijdopmaak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">let</span><span style="color:#000000"> result = </span><span style="color:#a31515">&quot;heure=&quot;</span><span style="color:#000000"> + now.format(</span><span style="color:#a31515">&quot;HH:mm:ss:SSS&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">if</span><span style="color:#000000"> (début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> durée = now - début;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> milliseconds = durée % 1000;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> seconds = Math.floor(durée / 1000);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// opmaak van de duur</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    result = result + sprintf(</span><span style="color:#a31515">&quot;, durée= %s seconde(s) et %s millisecondes&quot;</span><span style="color:#000000">, seconds, milliseconds);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// resultaat</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> result;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+</code></pre></div>
+
+<p><strong>Opmerkingen</strong></p>
+<ul>
+  <li>regels 18-28: aanmaken van een <b>[Promise promise1]</b>. De asynchrone functie ervan levert het resultaat na één seconde via een gebeurtenis. Zodra deze asynchrone bewerking is gestart (het starten van een timer), wordt niet gewacht tot het resultaat wordt geleverd, maar wordt onmiddellijk doorgegaan naar de code op regel 35;
+  </li>
+  <li>regels 35-44: we abonneren ons op de twee gebeurtenissen <b>[resolved, rejected] </b>die de interne asynchrone functie van <b>[promise1] </b>kan genereren;
+  </li>
+  <li>regels 46-71: we herhalen dezelfde codereeks als eerder voor een tweede belofte <b>[promise2]</b>;
+  </li>
+  <li>regel 74: de hoofdcode van het script is voltooid, maar het script als geheel nog niet, omdat er twee asynchrone acties zijn gestart. We keren terug naar de gebeurtenislus, waar op een gegeven moment een van de gebeurtenissen <b>[resolved, rejected] </b>van de beloften <b>[promise1, promise2] </b>zal plaatsvinden. Deze wordt dan verwerkt;
+  </li>
+  <li>daarna keert men terug naar de gebeurtenislus. En daar zal de tweede gebeurtenis <b>[resolved, rejected] </b>van de beloften <b>[promise1, promise2] </b>worden verwerkt wanneer deze zich voordoet;
+  </li>
+</ul>
+
+<p><strong>Uitvoering</strong></p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Running]</span><span style="color:#a31515"> C:\myprograms\laragon-lite\bin\nodejs\node-v10\node.exe -r esm &quot;c:\Data\st-2019\dev\es6\javascript\async\async-04.js&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début du script]</span>, heure=09:39:05:950, durée= 0 seconde(s) et 3 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone de promise1]</span>, heure=09:39:05:958, durée= 0 seconde(s) et 0 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone de promise2]</span>, heure=09:39:05:959, durée= 0 seconde(s) et 1 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin du code principal du script]</span>, heure=09:39:05:960, durée= 0 seconde(s) et 13 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone de promise1]</span>, heure=09:39:06:977, durée= 1 seconde(s) et 19 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[promise1.then]</span>, heure=09:39:06:980, durée= 1 seconde(s) et 21 millisecondes, result=<span style="font-weight:bold">[réussite]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[promise1.finally]</span> heure=09:39:06:982, durée= 1 seconde(s) et 24 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone de promise2]</span>, heure=09:39:07:976, durée= 2 seconde(s) et 17 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[promise2.catch]</span>, heure=09:39:07:978, durée= 2 seconde(s) et 19 millisecondes, result=<span style="font-weight:bold">[échec]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[promise2.finally]</span>, heure=09:39:07:980, durée= 2 seconde(s) et 21 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Done]</span><span style="color:#a31515"> exited with </span><span style="color:#800080">code=0</span><span style="color:#a31515"> in </span><span style="color:#09885a">2.589</span><span style="color:#a31515"> seconds</span></span></span>
+</code></pre></div>
+
+<p><strong>Opmerkingen</strong></p>
+<ul>
+  <li>regel 3: de asynchrone functie van <b>[promise1] </b>wordt gestart, maar er wordt niet gewacht op de voltooiing ervan, die door een gebeurtenis zal worden gemeld;
+  </li>
+  <li>regel 4: de asynchrone functie van <b>[promise2] </b>wordt gestart, maar er wordt niet gewacht tot deze is voltooid, wat door een gebeurtenis zal worden gemeld;
+  </li>
+  <li>regel 5: einde van de hoofdcode en terugkeer naar de gebeurtenislus;
+  </li>
+  <li>regel 6: verwerking van de gebeurtenis <b>[fin fonction asynchrone de promise1]</b>. De status van <b>[promise1] </b>verandert in <b>[resolved]</b>. Dit wordt door een gebeurtenis gemeld;
+  </li>
+  <li>regel 7: aangezien <b>[promise2] </b>zijn taak nog niet heeft voltooid, zal de gebeurtenis <b>[promise1 resolved], </b>die zojuist in de lus is geplaatst, worden verwerkt door de methode <b>[promise1.then] </b>en vervolgens door de methode <b>[promise.finally] </b>(regel 8);
+  </li>
+  <li>regels 9-11: hetzelfde mechanisme vindt plaats wanneer <b>[promise2] </b>van de status <b>[pending] </b>naar <b>[resolved] </b>overgaat;
+  </li>
+</ul>
+
+<p><span id="refheadingtoc225384640539168" name="refheadingtoc225384640539168" class="odt-bookmark-anchor"></span></p>
+<h2 id="115-script-async-05">11.5. <span style="color: #4f81bd">script [async-05]</span></h2>
+<p>Laten we teruggaan naar de code van de constructor van een object <strong>[Promise]</strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">8</a></span>
+<span class="normal"><a href="#__codelineno-1-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">promise</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">){</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c1">// er wordt een asynchrone taak gestart</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">// …</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="c1">// bij succes: roep resolve(result) aan, waarbij [result] het resultaat is van de asynchrone taak;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1">// bij mislukking: roep reject(error) aan, waarbij [error] een object is dat de opgetreden fout bevat;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="p">}</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="c1">// abonneren op de gebeurtenissen die door de asynchrone taak worden gegenereerd</span>
+</code></pre></div></td></tr></table></div>
+<p>Op regel 2 wordt de asynchrone taak van <strong>[Promise]</strong> gestart. Deze taak heeft vaak meer parameters nodig dan alleen de <strong>[resolve, reject]-parameters</strong> die de functie die deze taak omvat, doorgeeft. In dit geval wordt het aanmaken van de <strong>[Promise]</strong> ingekapseld in een functie die de parameters doorgeeft die de asynchrone taak nodig heeft:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1">// definitie van de asynchrone functie</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="kd">function</span><span class="w"> </span><span class="nx">uneFonctionAsynchrone</span><span class="w"> </span><span class="p">(</span><span class="nx">p1</span><span class="p">,</span><span class="w"> </span><span class="nx">p2</span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">,</span><span class="w"> </span><span class="nx">pn</span><span class="p">){</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">){</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">     </span><span class="c1">// er wordt een asynchrone taak gestart met de parameters (P1, p2, …, pn)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="c1">// …</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">     </span><span class="c1">// bij succes: roep resolve(result) aan, waarbij [result] het resultaat van de asynchrone taak is;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">     </span><span class="c1">// bij mislukking: roep reject(error) aan, waarbij [error] een object is dat de opgetreden fout bevat;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="p">}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c1">// weabonneren op de gebeurtenissen [resolved, rejected] die de asynchrone functie [uneFonctionAsynchrone] zal genereren</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="err">…</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="c1">// Even later wordt de asynchrone functie [uneFonctionAsynchrone] aangeroepen</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="nx">uneFonctionAsynchrone</span><span class="p">(</span><span class="nx">e1</span><span class="p">,</span><span class="w"> </span><span class="nx">e2</span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="p">,</span><span class="w"> </span><span class="nx">en</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>Het volgende script:</p>
+<ul>
+  <li>definieert twee asynchrone functies die een <b>[Promise]</b> retourneren;
+  </li>
+  <li>start de uitvoering ervan parallel op en wacht tot beide zijn voltooid om een bepaalde taak uit te voeren;
+  </li>
+</ul>
+
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content">&#x27;use strict&#x27;;</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// Er kunnen asynchrone functies worden gedefinieerd die een type [Promise] retourneren</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// en ze kunnen vervolgens worden gemarkeerd met het trefwoord [async]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// imports</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> moment </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;moment&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> { sprintf } </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;sprintf-js&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// begin</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutScript = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een asynchrone functie die een belofte retourneert [Promise]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> async01(p1) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> </span><span style="color:#0000ff">new</span><span style="color:#000000"> Promise((resolve) =&gt; {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début de la tâche asynchrone async01]</span><span style="color:#a31515">&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// de asynchrone taak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> débutAsync01 = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">      console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin de la tâche asynchrone async01]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutAsync01));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// de asynchrone taak kan een complex resultaat opleveren</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      resolve({</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        prop1: <span style="font-weight:bold">[10, 20, 30]</span>,</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">        prop2: </span><span style="color:#a31515">&quot;abcd&quot;</span><span style="color:#000000">,</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        prop3: p1,</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    }, 1000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een asynchrone functie die een belofte retourneert [Promise]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> async02(p1, p2) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> </span><span style="color:#0000ff">new</span><span style="color:#000000"> Promise(resolve =&gt; {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début de la tâche asynchrone async02]</span><span style="color:#a31515">&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// asynchrone taak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> débutAsync02 = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">      console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin de la tâche asynchrone async02]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutAsync02));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// de asynchrone taak kan een complex resultaat opleveren</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      resolve({</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        prop1: <span style="font-weight:bold">[11, 21, 31]</span>,</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">        prop2: </span><span style="color:#a31515">&quot;xyzt&quot;</span><span style="color:#000000">,</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        prop3: p1 + p2</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    }, 2000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  })</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// we starten beide asynchrone functies parallel</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// en we wachten tot ze allebei zijn voltooid</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// de &#x27;then&#x27; wordt alleen uitgevoerd als beide functies de gebeurtenis [resolved] hebben gegenereerd</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// de `catch` wordt uitgevoerd zodra een van de twee functies de gebeurtenis [rejected] heeft gegenereerd</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">Promise.all(<span style="font-weight:bold">[async01(10), async02(10, 20)]</span>)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// het resultaat is een array [result1, result2], waarbij [result1] het resultaat is dat wordt gegenereerd door een [resolve] van [async01]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// en [result2] het resultaat is dat wordt gegenereerd door een [resolve] van [async02]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  .then(result =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise-all success]</span><span style="color:#a31515">, %s, result=%j&quot;</span><span style="color:#000000">, heure(débutScript), result));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  })</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// error is het resultaat dat wordt gegenereerd door de eerste [reject] van een van de twee asynchrone functies</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  .catch(error =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise-all error]</span><span style="color:#a31515">, %s, erreur=%j&quot;</span><span style="color:#000000">, heure(débutScript), error));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  })</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// finally wordt uitgevoerd na de then of de catch</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  .finally(() =&gt; {</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[promise-all finally]</span><span style="color:#a31515">, %s&quot;</span><span style="color:#000000">, heure(débutScript)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wordt weergegeven vóór de berichten van de asynchrone functies en de bijbehorende gebeurtenissen</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin du code principal du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// hulpprogramma</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> heure(début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// huidige tijd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">const</span><span style="color:#000000"> now = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// tijdopmaak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">let</span><span style="color:#000000"> result = </span><span style="color:#a31515">&quot;heure=&quot;</span><span style="color:#000000"> + now.format(</span><span style="color:#a31515">&quot;HH:mm:ss:SSS&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">if</span><span style="color:#000000"> (début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> durée = now - début;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> milliseconds = durée % 1000;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> seconds = Math.floor(durée / 1000);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// opmaak van de duur</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    result = result + sprintf(</span><span style="color:#a31515">&quot;, durée= %s seconde(s) et %s millisecondes&quot;</span><span style="color:#000000">, seconds, milliseconds);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// resultaat</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> result;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+</code></pre></div>
+
+<p><strong>Opmerkingen</strong></p>
+<ul>
+  <li>regels 15-30: we definiëren een functie <b>[async01] </b>die na 1 seconde haar resultaat retourneert via een timergebeurtenis. De functie <b>[async01] </b>wordt gebruikt in het resultaat op regel 26;
+  </li>
+  <li>regels 33-47: we doen hetzelfde met een functie <b>[async02] </b>die haar resultaat na 2 seconden via een timergebeurtenis retourneert. De functie <b>[async02] </b>heeft twee parameters die in haar resultaat op regel 44 worden gebruikt;
+  </li>
+  <li>wanneer de twee functies <b>[async01, async02]</b> worden aangeroepen:
+    <ul>
+      <li>gestart;
+      </li>
+      <li>leveren ze twee beloften <b>[promise1, promise2]</b> aan de aanroepende code;
+      </li>
+      <li>de uitvoering keert dan terug naar de aanroepende code, die verdergaat;
+      </li>
+      <li>na ongeveer 1 seconde zal <b>[async01] </b>een gebeurtenis genereren om aan te geven dat het zijn taak heeft voltooid. De betreffende gebeurtenis wordt in de wachtrij geplaatst van de gebeurtenislus die gekoppeld is aan het door <b>[async01]</b> doorgegeven resultaat met de gebeurtenis;
+      </li>
+      <li>na ongeveer 2 seconden zal hetzelfde proces plaatsvinden voor <b>[async02]</b>;
+      </li>
+    </ul>
+  </li>
+  <li>regel 54: pas nu worden de asynchrone functies <b>[async01, async02] </b>uitgevoerd (notaties async01(10) en async02(10,20)). Dit gebeurt binnen een array die als parameter wordt doorgegeven aan de methode <b>[Promise.all]</b>. We weten dat <b>[async01, async02] </b>beide een belofte teruggeven aan de aanroepende code. De parameter van <b>[Promise.all] </b>is dus een array van twee beloften;
+  </li>
+  <li><b>[Promise.all([promise1, promise2, …, promisen]).then(f1).catch(f2).finally(f3)</b>] is een abonnement op gebeurtenissen:
+    <ul>
+      <li><b>[Promise.all] </b>is van het type <b>[Promise]</b>;
+      </li>
+      <li>de functie <b>[f1] </b>van de methode <b>[then] </b>wordt uitgevoerd wanneer <b>alle beloften [promise1, promise2, …, promisen] </b>uit de parameterarray van de methode <b>[all] </b>zijn overgegaan van destatus <b>[pending] </b>naar de status <b>[resolved] </b>zijn overgegaan. Met andere woorden: <b>[f1] </b>wordt uitgevoerd wanneer alle beloften in de array met succes zijn voltooid;
+      </li>
+      <li>de functie <b>[f2] </b>van de methode <b>[catch] </b>wordt uitgevoerd zodra een van de beloften in de array van de status <b>[pending] </b>naar de status <b>[rejected] </b>overgaat. Met andere woorden: <b>[f2] </b>wordt uitgevoerd zodra een van de beloften in de array mislukt;
+      </li>
+      <li>de functie <b>[f3] </b>van de methode <b>[finally] </b>wordt uitgevoerd na de uitvoering van een van de methoden <b>[then, catch]</b>, en wordt dus altijd uitgevoerd;
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>De uitvoering van de code levert de volgende resultaten op:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Running]</span><span style="color:#a31515"> C:\myprograms\laragon-lite\bin\nodejs\node-v10\node.exe -r esm &quot;c:\Data\st-2019\dev\es6\javascript\async\async-05.js&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début du script]</span>, heure=12:17:17:367</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">[début de la tâche asynchrone async01]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">[début de la tâche asynchrone async02]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin du code principal du script]</span>, heure=12:17:17:375, durée= 0 seconde(s) et 10 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin de la tâche asynchrone async01]</span>, heure=12:17:18:391, durée= 1 seconde(s) et 17 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin de la tâche asynchrone async02]</span>, heure=12:17:19:389, durée= 2 seconde(s) et 14 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[promise-all success]</span>, heure=12:17:19:390, durée= 2 seconde(s) et 25 millisecondes, result=<span style="font-weight:bold">[{&quot;prop1&quot;:[10,20,30]</span>,&quot;prop2&quot;:&quot;abcd&quot;,&quot;prop3&quot;:10},{&quot;prop1&quot;:<span style="font-weight:bold">[11,21,31]</span>,&quot;prop2&quot;:&quot;xyzt&quot;,&quot;prop3&quot;:30}]</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[promise-all finally]</span>, heure=12:17:19:392, durée= 2 seconde(s) et 27 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Done]</span><span style="color:#a31515"> exited with </span><span style="color:#800080">code=0</span><span style="color:#a31515"> in </span><span style="color:#09885a">2.572</span><span style="color:#a31515"> seconds</span></span></span>
+</code></pre></div>
+
+<ul>
+  <li>regels 6-7: de twee asynchrone taken <b>[async01, async02] </b>worden gestart. Ze werken parallel. Niet de uitvoering van hun code gebeurt parallel, maar hun respectieve wachttijden op de gevraagde gegevens vinden tegelijkertijd plaats;
+  </li>
+  <li>regel 5: de hoofdcode van het script is voltooid. Nu moet nog worden gewacht tot de twee asynchrone taken <b>[async01, async02]</b> zijn voltooid;
+  </li>
+  <li>regel 6: de asynchrone taak <b>[async01] </b>wordt ongeveer 1 s na het starten voltooid. Deze levert een resultaat op via de functie <b>[resolve]</b>, waardoor de belofte in de tabel op regel 56 van de code van de status <b>[pending] </b>naar <b>[resolved] </b>verandert. Dit is niet voldoende om de methode <b>[then]</b> te activeren, regels 59-60 van de code;
+  </li>
+  <li>regel 7: de asynchrone taak <b>[async02] </b>wordt ongeveer 2 s na het starten voltooid. Deze taak retourneert een resultaat via de functie <b>[resolve]</b>, waardoor de belofte in de tabel op regel 56 van de code van de status <b>[pending] </b>naar <b>[resolved] </b>verandert. De methode <b>[then] </b>wordt uitgevoerd zodra de gebeurtenislus dit toestaat;
+  </li>
+  <li>regel 8:   de methode <b>[then] </b>van <b>[Promise.all] </b>wordt uitgevoerd. Deze ontvangt als parameter een array <b>[result1, result2], </b>waarbij <b>[result1] </b>het resultaat is dat door <b>[async01]</b> is gegenereerd, en <b>[result2] </b>het resultaat is dat door <b>[async02]</b> is gegenereerd;
+  </li>
+  <li>regel 9: de methode <b>[finally] </b>van <b>[Promise.all] </b>wordt uitgevoerd;
+  </li>
+</ul>
+
+<p><span id="refheadingtoc225386640539168" name="refheadingtoc225386640539168" class="odt-bookmark-anchor"></span></p>
+<h2 id="116-script-async-06">11.6. <span style="color: #4f81bd">script [async-06]</span></h2>
+<p>Dit nieuwe script laat zien hoe het gecombineerde gebruik van de sleutelwoorden <strong>[async / await]</strong> het mogelijk maakt om <strong>asynchrone</strong> code te schrijven die lijkt op <strong>synchrone</strong> code. De afhandeling van gebeurtenissen is volledig verborgen, waardoor de code gemakkelijker te begrijpen is.</p>
+<p>We nemen het vorige voorbeeld weer op en brengen daarin de volgende wijzigingen aan:</p>
+<ul>
+  <li>we voegen een derde asynchrone functie <b>[async03]</b> toe, die haar resultaat teruggeeft via de methode <b>[Promise.reject], </b>die vervolgens aan de gebeurtenislus meldt dat ze er niet in is geslaagd haar taak uit te voeren;
+  </li>
+  <li>we voeren de drie asynchrone functies <b>[async01, async02, async03]</b> sequentieel uit. In het vorige voorbeeld hadden we de asynchrone functies <b>[async01, async02]</b> parallel uitgevoerd;
+  </li>
+  <li>voordat de sleutelwoorden <b>[async/await]</b> verschenen, gebeurde de sequentiële uitvoering van asynchrone acties met behulp van in elkaar geneste <b>[Promise]-functies</b>. Zodra er op deze manier meerdere asynchrone acties moesten worden uitgevoerd, nam het aantal beloften dienovereenkomstig toe en werd de code minder leesbaar;
+  </li>
+  <li>met de sleutelwoorden <b>[async/await] </b>gebeurt de sequentiële uitvoering van asynchrone taken met een syntaxis die overeenkomt met die van de uitvoering van synchrone taken:
+  </li>
+</ul>
+
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content">// asynchrone functie - gebruik van async/await</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">async</span><span style="color:#000000"> </span><span style="color:#0000ff">function</span><span style="color:#000000"> main() {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// sequentiële uitvoering van asynchrone taken</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">try</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// uitvoering met wachten op [async01]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result1 = </span><span style="color:#0000ff">await</span><span style="color:#000000"> async01(...);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[async01 result]</span><span style="color:#a31515">=&quot;</span><span style="color:#000000">, result1);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// uitvoering met wachten op [async02]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result2 = </span><span style="color:#0000ff">await</span><span style="color:#000000"> async02(...);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[async02 result]</span><span style="color:#a31515">=&quot;</span><span style="color:#000000">, result2);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// uitvoering in afwachting van [async03]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result3 = </span><span style="color:#0000ff">await</span><span style="color:#000000"> async03(...);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[async03 result]</span><span style="color:#a31515">=&quot;</span><span style="color:#000000">, result3);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">catch</span><span style="color:#000000"> (error) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// een van de asynchrone acties is mislukt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[sequential error]</span><span style="color:#a31515">= %j, %s&quot;</span><span style="color:#000000">, error));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">finally</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// voltooid</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin exécution séquentielle des tâches asynchrones]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+</code></pre></div>
+
+<ul>
+  <li>regel 6: de asynchrone functie <b>[async01] </b>wordt gestart (trefwoord <b>await</b>) en er wordt gewacht totdat deze het resultaat heeft gepubliceerd via een van de methoden <b>[Promise.resolve, Promise.reject]</b>. Dit is dus een <b>blokkerende</b> bewerking;
+  </li>
+  <li>regel 6: het trefwoord <b>[await] </b>zet de asynchrone bewerking <b>[async01]</b> om in een blokkerende bewerking. We weten dat de bewerking <b>[async01] </b>op twee manieren een resultaat retourneert:
+    <ul>
+      <li>het <b>levert </b>vrijwel onmiddellijk een object <b>[Promise] af </b>aan de aanroepende code;
+      </li>
+      <li>vervolgens <b>publiceert</b> het een resultaat via de methoden <b>[Promise.resolve, Promise.reject]</b> in de gebeurtenislus. Het is dit laatste resultaat dat door <b>[result1]</b>, regel 6, wordt opgehaald. De gebeurtenisafhandeling van de actie <b>[async01] </b>is onzichtbaar geworden;
+      </li>
+      <li>als het resultaat <b>[result] </b>van <b>[async01] </b>wordt gepubliceerd door <b>[Promise.resolve(result)]</b>, wordt het toegewezen aan <b>[result1], </b>regel 6, en gaat de uitvoering verder op regel 7;
+      </li>
+      <li>Als het resultaat van <b>[async01] </b>wordt gepubliceerd door <b>[Promise.reject]</b>, leidt dit tot een uitzondering en gaat de uitvoering van de code verder bij regel 14, de regel van <b>de catch</b>. De parameter van de clausule <b>[catch] </b>is het foutobject (error) dat door <b>[async01]</b> wordt gepubliceerd met een uitdrukking <b>[Promise.reject(error)]</b>. De asynchrone taak kan de fout ook via een <b>[throw(error)]</b> publiceren. Het object <b>[error] </b>is het object dat in <b>[catch(error)]</b> is opgehaald;
+      </li>
+      <li>het sleutelwoord <b>[await] </b>moet verplicht voorkomen in een functie die wordt voorafgegaan door het sleutelwoord <b>[async]</b>, regel 2. Dit sleutelwoord geeft aan dat de functie <b>[main] </b>een asynchrone functie is;
+      </li>
+      <li>in de uitdrukking <b>[await f(…)] </b>moet <b>[f] </b>een asynchrone functie zijn die een object <b>[Promise]</b> teruggeeft aan de aanroepende code;
+      </li>
+    </ul>
+  </li>
+  <li>we doen hetzelfde voor de asynchrone actie <b>[async02]</b>, regel 9, en <b>[async03]</b>, regel 12;
+  </li>
+</ul>
+
+<p>Met dezelfde sleutelwoorden <strong>[async / await]</strong> is het mogelijk om asynchrone taken parallel uit te voeren met de volgende syntaxis:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">try</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// parallelle uitvoering van asynchrone taken</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result = </span><span style="color:#0000ff">await</span><span style="color:#000000"> Promise.all(</span><span style="font-weight:bold;color:#000000">[async01(...), async02(...), async03(...)]</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[parallel success]</span><span style="color:#a31515">, %s, result=%j&quot;</span><span style="color:#000000">, heure(débutParallel), result));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">catch</span><span style="color:#000000"> (error) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// een van de asynchrone acties is mislukt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[parallel error]</span><span style="color:#a31515">, %s, erreur=%j&quot;</span><span style="color:#000000">, heure(débutParallel), error));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">finally</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// voltooid</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin exécution parallèle des tâches asynchrones]</span><span style="color:#a31515">,%s&quot;</span><span style="color:#000000">, heure(débutParallel)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+</code></pre></div>
+
+<ul>
+  <li>regel 3: hier is sprake van een <b>blokkerende</b> bewerking: er wordt gewacht totdat de drie asynchrone taken uit de array <b>[async01(..), async02(..), async03(..)] </b>hun resultaten op de gebeurtenislus hebben gepubliceerd met een van de methoden <b>[Promise.resolve, Promise.reject]</b>;
+  </li>
+  <li>als de drie asynchrone taken hun resultaten publiceren met <b>[Promise.resolve]</b>, dan is de constante <b>[result] </b>de array <b>[result1, result2, result3], </b>waarbij:
+    <ul>
+      <li><b>[result1] </b>het resultaat is dat door <b>[async01]</b> is gepubliceerd met de uitdrukking <b>[Promise.resolve(result1)]</b>;
+      </li>
+      <li><b>[result2] </b>is het resultaat dat door <b>[async02]</b> is gepubliceerd met de uitdrukking <b>[Promise.resolve(result2)]</b>;
+      </li>
+      <li><b>[result3] </b>is het resultaat dat door <b>[async03]</b> is gepubliceerd met de uitdrukking <b>[Promise.resolve(result3)]</b>;
+      </li>
+    </ul>
+  </li>
+  <li>als een van de drie taken zijn resultaat publiceert met de uitdrukking <b>[Promise.reject(error)], </b>dan treedt er een uitzondering op;
+    <ul>
+      <li>de constante <b>[result] </b>op regel 3 krijgt geen waarde;
+      </li>
+      <li>de uitvoering gaat direct verder met <b>[catch] </b>op regel 5;
+      </li>
+      <li>de parameter (error) van de catch is het object (error) dat door de uitdrukking <b>[Promise.reject(error)]</b> wordt gepubliceerd;
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Door deze twee syntaxisvormen te combineren, kunnen asynchrone taken zowel sequentieel als parallel worden uitgevoerd, en dat alles met een syntaxis die vergelijkbaar is met die van synchrone code. Deze syntaxis is veel leesbaarder dan de voorgaande en verdient daarom de voorkeur. Deze syntaxis <strong>[async / await]</strong> is pas beschikbaar vanaf versie 6 van ECMAScript. Er is nog steeds veel JavaScript-code die gebruikmaakt van <strong>[Promise]-promises</strong>. Daarom is het belangrijk om ook de werking daarvan te begrijpen.</p>
+<p>De volledige code van het script <strong>[async-06]</strong> is als volgt:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content">&#x27;&#x27;use strict&#x27;;</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// parallelle of sequentiële uitvoering van meerdere asynchrone taken</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// met de sleutelwoorden async / await</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// imports</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> moment </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;moment&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">import</span><span style="color:#000000"> { sprintf } </span><span style="color:#0000ff">from</span><span style="color:#000000"> </span><span style="color:#a31515">&#x27;sprintf-js&#x27;</span><span style="color:#000000">;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// begin</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">const</span><span style="color:#000000"> débutScript = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début du code principal du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een asynchrone functie die een [Promise] retourneert</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> async01(débutAsync01) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> </span><span style="color:#0000ff">new</span><span style="color:#000000"> Promise(</span><span style="color:#0000ff">function</span><span style="color:#000000"> (resolve) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début fonction asynchrone async01]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// asynchrone functie</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">      console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin fonction asynchrone async01]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutAsync01));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// de asynchrone actie kan een complex resultaat opleveren</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// hier geslaagd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      resolve({</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        prop1: <span style="font-weight:bold">[11, 21, 31]</span>,</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">        prop2: </span><span style="color:#a31515">&quot;abcd&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    }, 1000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een asynchrone functie die een [Promise] retourneert</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> async02(débutAsync02) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début fonction asynchrone async02]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> </span><span style="color:#0000ff">new</span><span style="color:#000000"> Promise(</span><span style="color:#0000ff">function</span><span style="color:#000000"> (resolve) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// asynchrone functie</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">      console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin fonction asynchrone async02]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutAsync02));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// de asynchrone actie kan een complex resultaat opleveren</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// hier geslaagd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      resolve({</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        prop1: <span style="font-weight:bold">[12, 22, 32]</span>,</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">        prop2: </span><span style="color:#a31515">&quot;xyzt&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    }, 2000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  })</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// een asynchrone functie die een [Promise] retourneert</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> async03(débutAsync03) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[début fonction asynchrone async03]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> </span><span style="color:#0000ff">new</span><span style="color:#000000"> Promise((resolve, reject) =&gt; {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// asynchrone functie</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    setTimeout(</span><span style="color:#0000ff">function</span><span style="color:#000000"> () {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">      console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin fonction asynchrone async03]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutAsync03));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// de asynchrone actie kan een complex resultaat opleveren</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      <span style="color:#000000">// hier mislukt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      reject({</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">        prop1: <span style="font-weight:bold">[13, 23, 33]</span>,</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">        prop2: </span><span style="color:#a31515">&quot;échec&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">      });</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    }, 3000)</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  })</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// asynchrone functie – gebruik van async/await</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">async</span><span style="color:#000000"> </span><span style="color:#0000ff">function</span><span style="color:#000000"> main() {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">const</span><span style="color:#000000"> débutSequential = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// sequentiële uitvoering van asynchrone taken</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;------------ exécution séquentielle des tâches asynchrones lancée ------------------------&quot;</span><span style="color:#000000">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">try</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// uitvoering met wachten op [async01]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> débutAsync01 = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result1 = </span><span style="color:#0000ff">await</span><span style="color:#000000"> async01(débutAsync01);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[async01 result]</span><span style="color:#a31515">=&quot;</span><span style="color:#000000">, result1);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// uitvoering met wachten op [async02]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> débutAsync02 = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;début async02-------------&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result2 = </span><span style="color:#0000ff">await</span><span style="color:#000000"> async02(débutAsync02);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[async02 result]</span><span style="color:#a31515">=&quot;</span><span style="color:#000000">, result2);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// uitvoering in afwachting van [async03]</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> débutAsync03 = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;début async03-------------&quot;</span><span style="color:#000000">, heure());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result3 = </span><span style="color:#0000ff">await</span><span style="color:#000000"> async03(débutAsync03);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[async03 result]</span><span style="color:#a31515">=&quot;</span><span style="color:#000000">, result3);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">catch</span><span style="color:#000000"> (error) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// een van de asynchrone acties is mislukt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[sequential error]</span><span style="color:#a31515">= %j, %s&quot;</span><span style="color:#000000">, error, heure(débutSequential)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">finally</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// voltooid</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin exécution séquentielle des tâches asynchrones]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutSequential));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">const</span><span style="color:#000000"> débutParallel = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// parallelle uitvoering van asynchrone taken</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;------------ exécution parallèle des tâches asynchrones lancée ------------------------&quot;</span><span style="color:#000000">)</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">try</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> result = </span><span style="color:#0000ff">await</span><span style="color:#000000"> Promise.all(</span><span style="font-weight:bold;color:#000000">[async01(débutParallel), async02(débutParallel), async03(débutParallel)]</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[parallel success]</span><span style="color:#a31515">, %s, result=%j&quot;</span><span style="color:#000000">, heure(débutParallel), result));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">catch</span><span style="color:#000000"> (error) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// een van de asynchrone acties is mislukt</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[parallel error]</span><span style="color:#a31515">, %s, erreur=%j&quot;</span><span style="color:#000000">, heure(débutParallel), error));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  } </span><span style="color:#0000ff">finally</span><span style="color:#000000"> {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// voltooid</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    console.log(sprintf(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin exécution parallèle des tâches asynchrones]</span><span style="color:#a31515">,%s&quot;</span><span style="color:#000000">, heure(débutParallel)));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// voltooid</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin de la fonction main]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutSequential));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// uitvoering van de asynchrone functie main</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">main();</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// wordt weergegeven vóór de verschillende berichten van de asynchrone functies en hun gebeurtenissen</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">console.log(</span><span style="color:#a31515">&quot;</span><span style="font-weight:bold;color:#a31515">[fin du code principal du script]</span><span style="color:#a31515">,&quot;</span><span style="color:#000000">, heure(débutScript));</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">// hulpprogramma</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#0000ff">function</span><span style="color:#000000"> heure(début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// huidige tijd</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">const</span><span style="color:#000000"> now = moment(Date.now());</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// tijdopmaak</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">let</span><span style="color:#000000"> result = </span><span style="color:#a31515">&quot;heure=&quot;</span><span style="color:#000000"> + now.format(</span><span style="color:#a31515">&quot;HH:mm:ss:SSS&quot;</span><span style="color:#000000">);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">if</span><span style="color:#000000"> (début) {</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> durée = now - début;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> milliseconds = durée % 1000;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    </span><span style="color:#0000ff">const</span><span style="color:#000000"> seconds = Math.floor(durée / 1000);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">    <span style="color:#000000">// opmaak van de duur</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">    result = result + sprintf(</span><span style="color:#a31515">&quot;, durée= %s seconde(s) et %s millisecondes&quot;</span><span style="color:#000000">, seconds, milliseconds);</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">  <span style="color:#000000">// resultaat</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="color:#000000">  </span><span style="color:#0000ff">return</span><span style="color:#000000"> result;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">}</span></span>
+</code></pre></div>
+
+<p>De resultaten van de uitvoering zijn als volgt:</p>
+<div class="odt-code-rich" data-linenums="true" style="counter-reset: odtline 0;"><pre><code class="language-javascript">
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Running]</span><span style="color:#a31515"> C:\myprograms\laragon-lite\bin\nodejs\node-v10\node.exe -r esm &quot;c:\Data\st-2019\dev\es6\javascript\async\async-06.js&quot;</span></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début du code principal du script]</span>, heure=15:02:00:152</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">------------ exécution séquentielle des tâches asynchrones lancée ------------------------</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone async01]</span>, heure=15:02:00:161</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin du code principal du script]</span>, heure=15:02:00:164, durée= 0 seconde(s) et 15 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone async01]</span>, heure=15:02:01:165, durée= 1 seconde(s) et 4 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[async01 result]</span>= { prop1: <span style="font-weight:bold">[ 11, 21, 31 ]</span>, prop2: &#x27;abcd&#x27; }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">début async02------------- heure=15:02:01:253</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone async02]</span>, heure=15:02:01:254</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone async02]</span>, heure=15:02:03:265, durée= 2 seconde(s) et 12 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[async02 result]</span>= { prop1: <span style="font-weight:bold">[ 12, 22, 32 ]</span>, prop2: &#x27;xyzt&#x27; }</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">début async03------------- heure=15:02:03:268</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone async03]</span>, heure=15:02:03:268</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone async03]</span>, heure=15:02:06:285, durée= 3 seconde(s) et 18 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[sequential error]</span>= {&quot;prop1&quot;:<span style="font-weight:bold">[13,23,33]</span>,&quot;prop2&quot;:&quot;échec&quot;}, heure=15:02:06:289, durée= 6 seconde(s) et 129 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin exécution séquentielle des tâches asynchrones]</span>, heure=15:02:06:291, durée= 6 seconde(s) et 131 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content">------------ exécution parallèle des tâches asynchrones lancée ------------------------</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone async01]</span>, heure=15:02:06:292</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone async02]</span>, heure=15:02:06:293</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[début fonction asynchrone async03]</span>, heure=15:02:06:294</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone async01]</span>, heure=15:02:07:294, durée= 1 seconde(s) et 2 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone async02]</span>, heure=15:02:08:298, durée= 2 seconde(s) et 6 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin fonction asynchrone async03]</span>, heure=15:02:09:297, durée= 3 seconde(s) et 5 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[parallel error]</span>, heure=15:02:09:298, durée= 3 seconde(s) et 6 millisecondes, erreur={&quot;prop1&quot;:<span style="font-weight:bold">[13,23,33]</span>,&quot;prop2&quot;:&quot;échec&quot;}</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin exécution parallèle des tâches asynchrones]</span>,heure=15:02:09:299, durée= 3 seconde(s) et 7 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold">[fin de la fonction main]</span>, heure=15:02:09:300, durée= 9 seconde(s) et 140 millisecondes</span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"></span></span>
+<span class="odt-code-line"><span class="odt-code-line-content"><span style="font-weight:bold;color:#316bcd">[Done]</span><span style="color:#a31515"> exited with </span><span style="color:#800080">code=0</span><span style="color:#a31515"> in </span><span style="color:#09885a">9.668</span><span style="color:#a31515"> seconds</span></span></span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Deze cursus-tutorial, geschreven door <strong>Serge Tahé</strong>, wordt aan het publiek ter beschikking gesteld volgens de voorwaarden van de
+        <em>Creative Commons Naamsvermelding – Geen commercieel gebruik –
+        Gelijk delen 3.0 ongewijzigd</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
